@@ -31,13 +31,12 @@ public class Controller implements KeyListener, ActionListener {
 			if (timerThread == null)
 				return;
 
-			System.out.println("Enter");
 			String s;
 			try {
 				if (wordCount < max && (s = wr.nextWord()) != null) {
+					checkInputWord(v.getCurrentInput(), v.getCurrentWord());
 					v.updateWord(s);
 					v.updateWordNumber(++wordCount);
-					checkInputWord(v.getCurrentInput(), v.getCurrentWord());
 				} else
 					finishProgram();
 
@@ -50,10 +49,13 @@ public class Controller implements KeyListener, ActionListener {
 	}
 
 	private void finishProgram() {
+		timerThread = null;
 		JOptionPane.showMessageDialog(v, "Result:\n- Correct Words = "
 				+ correctWords + "\n- Total Correct Characters = "
 				+ correctChars + "\n- Correct Characters in CW = "
-				+ correctCharsForCorrectWords + "\n- Time = " + time + "\n- Average Time for each character = "+ (correctChars/time));
+				+ correctCharsForCorrectWords + "\n- Time = " + time
+				+ "sec.\n- Average Time for each character = "
+				+ ((double) (time*1.0 / correctChars*1.0)) + "sec.");
 
 	}
 
@@ -62,7 +64,7 @@ public class Controller implements KeyListener, ActionListener {
 
 			@Override
 			public void run() {
-				char[] myWord = word.toCharArray();
+				char[] myWord = word.trim().toCharArray();
 				char[] input = currentText.toCharArray();
 				int i;
 				int count = 0;
@@ -70,7 +72,7 @@ public class Controller implements KeyListener, ActionListener {
 					if (myWord[i] == input[i])
 						count++;
 				}
-				if (i == myWord.length) {
+				if (i == myWord.length - 1) {
 					correctWords++;
 					correctCharsForCorrectWords += count;
 				}
@@ -94,7 +96,7 @@ public class Controller implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent a) {
 		switch (a.getActionCommand()) {
 		case "Easy":
-			max = 30;
+			max = 5;
 			break;
 		case "Medium":
 			max = 150;
@@ -110,7 +112,7 @@ public class Controller implements KeyListener, ActionListener {
 		try {
 			this.wr = new WordReader("List.txt");
 			v.updateWord(wr.nextWord());
-			v.updateWordNumber(wordCount++);
+			v.updateWordNumber(++wordCount);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

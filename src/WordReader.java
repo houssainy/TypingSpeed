@@ -14,7 +14,7 @@ public class WordReader {
 
 	public String nextWord() throws IOException {
 		String s = "";
-		if ((s = br.readLine()) != null)
+		if ((s = br.readLine()) == null)
 			return null;
 
 		return s;
