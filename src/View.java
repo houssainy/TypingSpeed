@@ -15,6 +15,10 @@ public class View extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 
+	private JLabel wordCount, timer;
+
+	private Thread timerThread;
+
 	private Controller controller;
 
 	/**
@@ -59,9 +63,9 @@ public class View extends JFrame {
 
 		JLabel lblWord = new JLabel("Word # ");
 
-		JLabel label = new JLabel("0");
+		timer = new JLabel("0");
 
-		JLabel label_1 = new JLabel("0");
+		wordCount = new JLabel("0");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane
 				.setHorizontalGroup(gl_contentPane
@@ -83,7 +87,7 @@ public class View extends JFrame {
 																		.addPreferredGap(
 																				ComponentPlacement.RELATED)
 																		.addComponent(
-																				label_1)
+																				wordCount)
 																		.addPreferredGap(
 																				ComponentPlacement.RELATED,
 																				271,
@@ -93,7 +97,7 @@ public class View extends JFrame {
 																		.addPreferredGap(
 																				ComponentPlacement.RELATED)
 																		.addComponent(
-																				label))
+																				timer))
 														.addGroup(
 																gl_contentPane
 																		.createSequentialGroup()
@@ -137,8 +141,29 @@ public class View extends JFrame {
 														Alignment.BASELINE)
 												.addComponent(lblTime)
 												.addComponent(lblWord)
-												.addComponent(label)
-												.addComponent(label_1))));
+												.addComponent(timer)
+												.addComponent(wordCount))));
 		contentPane.setLayout(gl_contentPane);
+
+		timerThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				int time = 0;
+				while (!timerThread.isInterrupted()) {
+					try {
+						timerThread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					timer.setText(String.valueOf(time++));
+				}
+
+			}
+		});
+	}
+
+	public void updateWordNumber(int count) {
+		wordCount.setText(String.valueOf(count));
 	}
 }
