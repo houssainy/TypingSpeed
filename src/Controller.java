@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Controller implements KeyListener, ActionListener {
 
 	private View v;
@@ -16,7 +18,7 @@ public class Controller implements KeyListener, ActionListener {
 	private int max;
 	private int time;
 
-	private int correctChars, correctWords;
+	private int correctChars, correctCharsForCorrectWords, correctWords;
 
 	public Controller(View v) {
 		this.v = v;
@@ -48,7 +50,10 @@ public class Controller implements KeyListener, ActionListener {
 	}
 
 	private void finishProgram() {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(v, "Result:\n- Correct Words = "
+				+ correctWords + "\n- Total Correct Characters = "
+				+ correctChars + "\n- Correct Characters in CW = "
+				+ correctCharsForCorrectWords + "\n- Time = " + time + "\n- Average Time for each character = "+ (correctChars/time));
 
 	}
 
@@ -60,12 +65,16 @@ public class Controller implements KeyListener, ActionListener {
 				char[] myWord = word.toCharArray();
 				char[] input = currentText.toCharArray();
 				int i;
+				int count = 0;
 				for (i = 0; i < (input.length - 1) && i < myWord.length; i++) {
 					if (myWord[i] == input[i])
-						correctChars++;
+						count++;
 				}
-				if (i == myWord.length)
+				if (i == myWord.length) {
 					correctWords++;
+					correctCharsForCorrectWords += count;
+				}
+				correctChars += count;
 			}
 		});
 		checkThread.start();
@@ -100,12 +109,15 @@ public class Controller implements KeyListener, ActionListener {
 	private void start() {
 		try {
 			this.wr = new WordReader("List.txt");
-		} catch (FileNotFoundException e) {
+			v.updateWord(wr.nextWord());
+			v.updateWordNumber(wordCount++);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.wordCount = 0;
 		this.correctChars = 0;
 		this.correctWords = 0;
+		this.correctCharsForCorrectWords = 0;
 
 		timerThread = new Thread(new Runnable() {
 

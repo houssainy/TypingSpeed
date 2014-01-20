@@ -45,7 +45,7 @@ public class View extends JFrame {
 		controller = new Controller(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 485, 313);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,116 +79,57 @@ public class View extends JFrame {
 		btnHard.addActionListener(controller);
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addGroup(
-																Alignment.LEADING,
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addContainerGap()
-																		.addComponent(
-																				lblWord)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
-																		.addComponent(
-																				wordCount)
-																		.addGap(43)
-																		.addComponent(
-																				btnNewButton)
-																		.addPreferredGap(
-																				ComponentPlacement.UNRELATED)
-																		.addComponent(
-																				btnMedium)
-																		.addGap(18)
-																		.addComponent(
-																				btnHard,
-																				GroupLayout.PREFERRED_SIZE,
-																				55,
-																				GroupLayout.PREFERRED_SIZE))
-														.addGroup(
-																gl_contentPane
-																		.createSequentialGroup()
-																		.addGap(100)
-																		.addGroup(
-																				gl_contentPane
-																						.createParallelGroup(
-																								Alignment.TRAILING,
-																								false)
-																						.addComponent(
-																								word,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								textField,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								210,
-																								Short.MAX_VALUE))))
-										.addGap(61)
-										.addComponent(lblTime)
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addComponent(timer).addContainerGap()));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								gl_contentPane
-										.createSequentialGroup()
-										.addGap(59)
-										.addComponent(word,
-												GroupLayout.PREFERRED_SIZE, 46,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addComponent(textField,
-												GroupLayout.PREFERRED_SIZE, 38,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												ComponentPlacement.RELATED, 67,
-												Short.MAX_VALUE)
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.TRAILING)
-														.addGroup(
-																gl_contentPane
-																		.createParallelGroup(
-																				Alignment.BASELINE)
-																		.addComponent(
-																				lblWord)
-																		.addComponent(
-																				wordCount))
-														.addGroup(
-																gl_contentPane
-																		.createParallelGroup(
-																				Alignment.BASELINE)
-																		.addComponent(
-																				btnHard)
-																		.addComponent(
-																				btnNewButton)
-																		.addComponent(
-																				btnMedium))))
-						.addGroup(
-								Alignment.TRAILING,
-								gl_contentPane
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												gl_contentPane
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(lblTime)
-														.addComponent(timer))));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblWord)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(wordCount)
+									.addGap(43)
+									.addComponent(btnNewButton)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnMedium)
+									.addGap(18)
+									.addComponent(btnHard, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(100)
+									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)))
+							.addGap(48)
+							.addComponent(lblTime)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(timer))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(163)
+							.addComponent(word)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(59)
+					.addComponent(word, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblWord)
+							.addComponent(wordCount))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnHard)
+							.addComponent(btnNewButton)
+							.addComponent(btnMedium))))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTime)
+						.addComponent(timer)))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 	}
