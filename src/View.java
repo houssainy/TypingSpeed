@@ -9,15 +9,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class View extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 
-	private JLabel wordCount, timer;
-
-	private Thread timerThread;
+	private JLabel wordCount, timer, word;
 
 	private Controller controller;
 
@@ -50,10 +50,12 @@ public class View extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblNewLabel = new JLabel("Word");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		word = new JLabel("Typing Speed");
+		word.setHorizontalAlignment(SwingConstants.CENTER);
+		word.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		textField.setColumns(10);
 
@@ -66,6 +68,16 @@ public class View extends JFrame {
 		timer = new JLabel("0");
 
 		wordCount = new JLabel("0");
+
+		JButton btnNewButton = new JButton("Easy");
+		btnNewButton.addActionListener(controller);
+
+		JButton btnMedium = new JButton("Medium");
+		btnMedium.addActionListener(controller);
+
+		JButton btnHard = new JButton("Hard");
+		btnHard.addActionListener(controller);
+
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane
 				.setHorizontalGroup(gl_contentPane
@@ -76,9 +88,9 @@ public class View extends JFrame {
 										.addGroup(
 												gl_contentPane
 														.createParallelGroup(
-																Alignment.LEADING)
+																Alignment.TRAILING)
 														.addGroup(
-																Alignment.TRAILING,
+																Alignment.LEADING,
 																gl_contentPane
 																		.createSequentialGroup()
 																		.addContainerGap()
@@ -88,16 +100,19 @@ public class View extends JFrame {
 																				ComponentPlacement.RELATED)
 																		.addComponent(
 																				wordCount)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED,
-																				271,
-																				Short.MAX_VALUE)
+																		.addGap(43)
 																		.addComponent(
-																				lblTime)
+																				btnNewButton)
 																		.addPreferredGap(
-																				ComponentPlacement.RELATED)
+																				ComponentPlacement.UNRELATED)
 																		.addComponent(
-																				timer))
+																				btnMedium)
+																		.addGap(18)
+																		.addComponent(
+																				btnHard,
+																				GroupLayout.PREFERRED_SIZE,
+																				55,
+																				GroupLayout.PREFERRED_SIZE))
 														.addGroup(
 																gl_contentPane
 																		.createSequentialGroup()
@@ -108,7 +123,7 @@ public class View extends JFrame {
 																								Alignment.TRAILING,
 																								false)
 																						.addComponent(
-																								lblNewLabel,
+																								word,
 																								Alignment.LEADING,
 																								GroupLayout.DEFAULT_SIZE,
 																								GroupLayout.DEFAULT_SIZE,
@@ -119,51 +134,79 @@ public class View extends JFrame {
 																								GroupLayout.DEFAULT_SIZE,
 																								210,
 																								Short.MAX_VALUE))))
-										.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(
-						gl_contentPane
-								.createSequentialGroup()
-								.addGap(59)
-								.addComponent(lblNewLabel,
-										GroupLayout.PREFERRED_SIZE, 46,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(textField,
-										GroupLayout.PREFERRED_SIZE, 38,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED,
-										76, Short.MAX_VALUE)
-								.addGroup(
-										gl_contentPane
-												.createParallelGroup(
-														Alignment.BASELINE)
-												.addComponent(lblTime)
-												.addComponent(lblWord)
-												.addComponent(timer)
-												.addComponent(wordCount))));
+										.addGap(61)
+										.addComponent(lblTime)
+										.addPreferredGap(
+												ComponentPlacement.RELATED)
+										.addComponent(timer).addContainerGap()));
+		gl_contentPane
+				.setVerticalGroup(gl_contentPane
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_contentPane
+										.createSequentialGroup()
+										.addGap(59)
+										.addComponent(word,
+												GroupLayout.PREFERRED_SIZE, 46,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(textField,
+												GroupLayout.PREFERRED_SIZE, 38,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												ComponentPlacement.RELATED, 67,
+												Short.MAX_VALUE)
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addGroup(
+																gl_contentPane
+																		.createParallelGroup(
+																				Alignment.BASELINE)
+																		.addComponent(
+																				lblWord)
+																		.addComponent(
+																				wordCount))
+														.addGroup(
+																gl_contentPane
+																		.createParallelGroup(
+																				Alignment.BASELINE)
+																		.addComponent(
+																				btnHard)
+																		.addComponent(
+																				btnNewButton)
+																		.addComponent(
+																				btnMedium))))
+						.addGroup(
+								Alignment.TRAILING,
+								gl_contentPane
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												gl_contentPane
+														.createParallelGroup(
+																Alignment.BASELINE)
+														.addComponent(lblTime)
+														.addComponent(timer))));
 		contentPane.setLayout(gl_contentPane);
 
-		timerThread = new Thread(new Runnable() {
+	}
 
-			@Override
-			public void run() {
-				int time = 0;
-				while (!timerThread.isInterrupted()) {
-					try {
-						timerThread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					timer.setText(String.valueOf(time++));
-				}
+	public void updateWord(String word) {
+		this.word.setText(word);
+		textField.setText("");
+	}
 
-			}
-		});
+	public String getCurrentText() {
+		return textField.getText();
 	}
 
 	public void updateWordNumber(int count) {
 		wordCount.setText(String.valueOf(count));
+	}
+
+	public void updateTimer(int time) {
+		timer.setText(String.valueOf(time));
 	}
 }
