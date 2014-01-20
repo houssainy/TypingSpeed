@@ -198,10 +198,13 @@ public class View extends JFrame {
 		textField.setText("");
 	}
 
-	public String getCurrentText() {
+	public String getCurrentInput() {
 		return textField.getText();
 	}
 
+	public String getCurrentWord() {
+		return word.getText();
+	}
 	public void updateWordNumber(int count) {
 		wordCount.setText(String.valueOf(count));
 	}
